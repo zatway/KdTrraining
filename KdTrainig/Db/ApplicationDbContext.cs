@@ -10,6 +10,7 @@ public class ApplicationDbContext : DbContext
         {
         }
 
+        
         public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Employee> Employees { get; set; } = null!;

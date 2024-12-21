@@ -1,0 +1,6 @@
+@KdTrainig_HostAddress = http://localhost:5090
+
+GET {{KdTrainig_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

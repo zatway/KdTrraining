@@ -146,3 +146,4 @@ C:\Users\zatway\RiderProjects\KdTrainig\KdTrainig\bin\Debug\net8.0\runtimes\brow
 C:\Users\zatway\RiderProjects\KdTrainig\KdTrainig\bin\Debug\net8.0\EntityFrameworkCore.CommonTools.dll
 C:\Users\zatway\RiderProjects\KdTrainig\KdTrainig\bin\Debug\net8.0\Jil.Core.dll
 C:\Users\zatway\RiderProjects\KdTrainig\KdTrainig\bin\Debug\net8.0\Sigil.dll
+C:\Users\zatway\RiderProjects\KdTrainig\KdTrainig\obj\Debug\net8.0\KdTrainig.sourcelink.json

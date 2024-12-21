@@ -1,3 +1,4 @@
+using System.Text;
 using KdTrainig.Db;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

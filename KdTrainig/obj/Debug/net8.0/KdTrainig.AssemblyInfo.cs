@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KdTrainig")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+797a984b3fe75edae902546813e7fd4e380463a4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0bd7ff3c1664e47ba82f4265d18456e192816e10")]
 [assembly: System.Reflection.AssemblyProductAttribute("KdTrainig")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KdTrainig")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

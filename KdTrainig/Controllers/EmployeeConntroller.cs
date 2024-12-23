@@ -44,7 +44,8 @@ public class EmployeeController : ControllerBase
             FullName = employee.FullName,
             HireDate = employee.HireDate,
             Position = employee.Position,
-            UserId = user.Id
+            UserId = user.Id,
+            User = user
         };
         
         _context.Employees.Add(newEmployee);
@@ -97,11 +98,17 @@ public class EmployeeController : ControllerBase
         }
 
         var user = _context.Users.FirstOrDefault(u => u.Username == employeeEditInfo.UserName);
+
+        if (user == null)
+        {
+            return BadRequest("Неверное имя пользователя");
+        }
         
         employee.FullName = employeeEditInfo.FullName;
         employee.Position = employeeEditInfo.Position;
         employee.HireDate = employeeEditInfo.HireDate;
         employee.UserId = user.Id;
+        employee.User = user;
 
         // Обновление других полей по мере необходимости
         // Например, обновление коллекций (Maintenances, TrainingEmployees) может требовать дополнительной логики

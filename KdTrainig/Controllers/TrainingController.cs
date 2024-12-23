@@ -28,7 +28,7 @@ public class TrainingController : ControllerBase
         
         if (employeeFind != null)
         {
-            return BadRequest("Сотрудник существует");
+            return BadRequest("Тренинг существует");
         }        
         
         var newTraining = new Training

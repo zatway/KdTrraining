@@ -10,16 +10,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Добавление сервисов в контейнер
 builder.Services.AddControllers();
 
+// Настройка строки подключения
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
+// Создание базы данных, если она отсутствует
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.EnsureCreated();
 }
 
+// Настройка JWT аутентификации
 var jwtKey = builder.Configuration["Jwt:Key"];
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -38,10 +41,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddEndpointsApiExplorer();
+// Настройка CORS (добавьте домены, если требуется)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+// Настройка Swagger
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kd train", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kd Train", Version = "v1" });
+
+    c.DocInclusionPredicate((docName, apiDesc) => true);
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
@@ -50,6 +67,7 @@ builder.Services.AddSwaggerGen(c =>
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
+
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -68,11 +86,18 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// Конфигурация HTTP-конвейера
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API v1"));
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kd Train API v1");
+        c.ConfigObject.AdditionalItems["syntaxHighlight"] = true; // Подсветка синтаксиса для Swagger UI
+    });
 }
+
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();

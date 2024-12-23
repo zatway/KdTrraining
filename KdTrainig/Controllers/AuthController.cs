@@ -47,11 +47,7 @@ public class AuthController : ControllerBase
         _context.SaveChanges();
         // Генерация JWT токена
         var token = GenerateJwtToken(user);
-
-        // Создание refresh токена
-        var refreshToken = GenerateRefreshToken(user);
-        
-        return Ok(new { Token = token, RefreshToken = refreshToken });
+        return Ok(new { Token = token });
     }
 
     [HttpPost("login")]
@@ -66,31 +62,8 @@ public class AuthController : ControllerBase
 
         // Генерация JWT токена
         var token = GenerateJwtToken(user);
-
-        // Создание refresh токена
-        var refreshToken = GenerateRefreshToken(user);
-
-        return Ok(new { Token = token, RefreshToken = refreshToken });
-    }
-
-    [HttpPost("refresh")]
-    public IActionResult Refresh(string refreshToken)
-    {
-        var token = _context.RefreshTokens.SingleOrDefault(rt => rt.Token == refreshToken);
-        if (token == null || token.ExpiryDate <= DateTime.UtcNow)
-        {
-            return Unauthorized("Refresh токен недействителен или истёк.");
-        }
-
-        var user = _context.Users.Find(token.UserId);
-        if (user == null)
-        {
-            return Unauthorized("Пользователь не найден.");
-        }
-
-        // Обновление токена
-        var newToken = GenerateJwtToken(user);
-        return Ok(new { Token = newToken });
+        
+        return Ok(new { Token = token });
     }
 
     private string GenerateJwtToken(User user)
@@ -126,20 +99,5 @@ public class AuthController : ControllerBase
         }
 
         return null;
-    }
-
-    private string GenerateRefreshToken(User user)
-    {
-        var refreshToken = new RefreshToken
-        {
-            Token = Guid.NewGuid().ToString(),
-            ExpiryDate = DateTime.UtcNow.AddDays(7),
-            UserId = user.Id
-        };
-
-        _context.RefreshTokens.Add(refreshToken);
-        _context.SaveChanges();
-
-        return refreshToken.Token;
     }
 }

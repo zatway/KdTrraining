@@ -14,7 +14,5 @@ public class User
     public int RoleId { get; set; }
     public Role Role { get; set; } = null!;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public ICollection<Log>? Logs { get; set; }
     public ICollection<Report>? Reports { get; set; }
-    public ICollection<RefreshToken>? RefreshTokens { get; set; }
 }

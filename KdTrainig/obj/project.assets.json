@@ -6546,24 +6546,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\zatway\\.nuget\\packages\\": {}
+    "C:\\Users\\Радмир\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\zatway\\RiderProjects\\KdTrainig\\KdTrainig\\KdTrainig.csproj",
+      "projectUniqueName": "E:\\KdTrraining\\KdTrainig\\KdTrainig.csproj",
       "projectName": "KdTrainig",
-      "projectPath": "C:\\Users\\zatway\\RiderProjects\\KdTrainig\\KdTrainig\\KdTrainig.csproj",
-      "packagesPath": "C:\\Users\\zatway\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\zatway\\RiderProjects\\KdTrainig\\KdTrainig\\obj\\",
+      "projectPath": "E:\\KdTrraining\\KdTrainig\\KdTrainig.csproj",
+      "packagesPath": "C:\\Users\\Радмир\\.nuget\\packages\\",
+      "outputPath": "E:\\KdTrraining\\KdTrainig\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\zatway\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Радмир\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "http://intranet.kd.local:8040/repository/kd/": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -6668,8 +6669,16 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://intranet.kd.local:8040/repository/kd/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    }
+  ]
 }

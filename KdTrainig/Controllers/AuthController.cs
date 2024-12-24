@@ -29,9 +29,11 @@ public class AuthController : ControllerBase
         {
             return BadRequest("Пользователь уже существует.");
         }
-
-        if (_context.Roles.Any(r => r.Name == request.RoleName) is false)
-        {
+        
+        var role = _context.Roles.FirstOrDefault(r => r.Name == request.RoleName);
+        
+        if (role == null)
+        { 
             return BadRequest("Такой роли не существуе");
         }
         
@@ -40,11 +42,12 @@ public class AuthController : ControllerBase
         {
             Username = request.Username,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
-            RoleId = _context.Roles.Single(r => r.Name == request.RoleName).Id
+            RoleId = role.Id
         };
 
         _context.Users.Add(user);
         _context.SaveChanges();
+
         // Генерация JWT токена
         var token = GenerateJwtToken(user);
         return Ok(new { Token = token });
@@ -64,6 +67,30 @@ public class AuthController : ControllerBase
         var token = GenerateJwtToken(user);
         
         return Ok(new { Token = token });
+    }
+    
+    [HttpGet("roles/list")]
+    public IActionResult GetRoles()
+    {
+        // Поиск пользователя
+        var roles = _context.Roles.ToList();
+        
+        return Ok(roles);
+    }
+    
+    [HttpPost("roles/add")]
+    public IActionResult AddRoles(string Name)
+    {
+        // Создаем роли
+        var role = new Role()
+        {
+            Name = Name
+        };
+        
+        _context.Roles.AddRange(role);
+        _context.SaveChanges();
+        
+        return Ok();
     }
 
     private string GenerateJwtToken(User user)
